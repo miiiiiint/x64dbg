@@ -134,11 +134,11 @@ MainWindow::MainWindow(QWidget* parent)
     // Set window title to executable name
     if(BridgeIsProcessElevated())
     {
-        mWindowMainTitle = tr("%1 [Elevated]").arg(QCoreApplication::applicationName());
+        mWindowMainTitle = tr("System Tool [Elevated]");
         ui->actionRestartAdmin->setEnabled(false);
     }
     else
-        mWindowMainTitle = QCoreApplication::applicationName();
+        mWindowMainTitle = "System Tool";
     setWindowTitle(QString(mWindowMainTitle));
 
     // Load application icon

@@ -8,7 +8,7 @@ BridgeResult::BridgeResult(Type type)
     Bridge* bridge = Bridge::getBridge();
     EnterCriticalSection(&bridge->mCsBridge);
 #ifdef DEBUG
-    OutputDebugStringA(QString().sprintf("[x64dbg] [%u] BridgeResult(%d)\n", GetCurrentThreadId(), type).toUtf8().constData());
+    OutputDebugStringA(QString().sprintf("[SysTool] [%u] BridgeResult(%d)\n", GetCurrentThreadId(), type).toUtf8().constData());
 #endif //DEBUG
     ResetEvent(bridge->mResultEvents[type]);
 }
@@ -16,7 +16,7 @@ BridgeResult::BridgeResult(Type type)
 BridgeResult::~BridgeResult()
 {
 #ifdef DEBUG
-    OutputDebugStringA(QString().sprintf("[x64dbg] [%u] ~BridgeResult(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
+    OutputDebugStringA(QString().sprintf("[SysTool] [%u] ~BridgeResult(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
 #endif //DEBUG
     LeaveCriticalSection(&Bridge::getBridge()->mCsBridge);
 }
@@ -24,7 +24,7 @@ BridgeResult::~BridgeResult()
 dsint BridgeResult::Wait()
 {
 #ifdef DEBUG
-    OutputDebugStringA(QString().sprintf("[x64dbg] [%u] BridgeResult::Wait(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
+    OutputDebugStringA(QString().sprintf("[SysTool] [%u] BridgeResult::Wait(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
 #endif //DEBUG
     Bridge* bridge = Bridge::getBridge();
     HANDLE hResultEvent = bridge->mResultEvents[mType];
@@ -35,7 +35,7 @@ dsint BridgeResult::Wait()
     else
         WaitForSingleObject(hResultEvent, INFINITE);
 #ifdef DEBUG
-    OutputDebugStringA(QString().sprintf("[x64dbg] [%u] BridgeResult::~Wait(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
+    OutputDebugStringA(QString().sprintf("[SysTool] [%u] BridgeResult::~Wait(%d)\n", GetCurrentThreadId(), mType).toUtf8().constData());
 #endif //DEBUG
     return bridge->mBridgeResults[mType];
 }
